@@ -1,5 +1,16 @@
 
 const Course = ({ course }) => {
+
+  const sum_exercises = () => {
+    let sum = 0;
+    course.parts.forEach(course_part => {
+      sum = sum + course_part.exercises
+    })
+    return (
+      sum
+    );
+  };
+
   return (
     <>
       <h2>{course.name}</h2>
@@ -8,9 +19,10 @@ const Course = ({ course }) => {
           {course_part.name}&nbsp;{course_part.exercises}
         </p>
       )}
+      <p><strong>Total of {sum_exercises()} exercises</strong></p>
     </>
   )
-}
+};
 
 const App = () => {
 
