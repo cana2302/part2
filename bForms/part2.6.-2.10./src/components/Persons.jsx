@@ -1,6 +1,10 @@
 const Persons = (props) => {
   return (
-    <li>{props.name}&nbsp;{props.number}</li>
+    <ul>
+      {props.filteredPersons.map(person =>
+        <li key={person.name}>{person.name}&nbsp;{person.number}</li>
+      )}
+    </ul>
   )
 }
 
