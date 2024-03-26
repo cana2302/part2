@@ -1,6 +1,6 @@
 const Persons = (props) => {
   return (
-    <li>{props.name}</li>
+    <li>{props.name}&nbsp;{props.number}</li>
   )
 }
 
