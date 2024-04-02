@@ -13,12 +13,13 @@ const create = personObject => {
 
 const _delete = id_person => {
   const request = axios.delete(`${baseUrl}/${id_person}`);
+  console.log('Deleted name');
   return request.then(response => response.data)
 }
 
 const updateNumber = (checkId, updatePerson) => {
   const request = axios.put(`${baseUrl}/${checkId}`, updatePerson);
-  alert('The new number was update!')
+  console.log('The new number was update!');
   return request.then(response => response.data)
 }
 

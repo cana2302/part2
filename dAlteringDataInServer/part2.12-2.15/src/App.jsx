@@ -3,6 +3,8 @@ import Persons from './components/Persons';
 import PersonForm from './components/PersonForm';
 import Filter from './components/Filter';
 import personService from './services/persons';
+import Notification from './components/Notification';
+
 
 const App = () => {
 
@@ -11,6 +13,7 @@ const App = () => {
   const [newName, setNewName] = useState('put a new name...');
   const [newNumber, setNewNumber] = useState('put a number...');
   const [newFilter, setNewFilter] = useState('');
+  const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
     personService
@@ -39,6 +42,9 @@ const App = () => {
               person.id === checkId ? returnedPerson : person));
             setNewName('');
             setNewNumber('');
+
+            setErrorMessage(`The new number for '${newName}' was update!`);
+            setTimeout(() => {setErrorMessage(null)}, 5000);
           })
       } else {
         return;
@@ -53,8 +59,11 @@ const App = () => {
           setPersons([...persons,returnedPerson]);
           setNewName('');
           setNewNumber('');
-      })
+      
+          setErrorMessage(`Added '${newName}'`);
+          setTimeout(() => {setErrorMessage(null)}, 5000);
 
+        })
     }
   }
 
@@ -91,6 +100,7 @@ const App = () => {
     <div>
 
       <h2>Phonebook</h2>
+      <Notification message={errorMessage} />
       
       <Filter newFilter={newFilter} handleFilterChange={handleFilterChange} />
       
