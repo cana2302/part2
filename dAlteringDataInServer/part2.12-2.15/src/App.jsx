@@ -13,7 +13,8 @@ const App = () => {
   const [newName, setNewName] = useState('put a new name...');
   const [newNumber, setNewNumber] = useState('put a number...');
   const [newFilter, setNewFilter] = useState('');
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [message, setMessage] = useState(null);
+  const [typeMessage, setTypeMessage] = useState();
 
   useEffect(() => {
     personService
@@ -42,9 +43,16 @@ const App = () => {
               person.id === checkId ? returnedPerson : person));
             setNewName('');
             setNewNumber('');
-
-            setErrorMessage(`The new number for '${newName}' was update!`);
-            setTimeout(() => {setErrorMessage(null)}, 5000);
+            
+            setTypeMessage(true);
+            setMessage(`The new number for '${newName}' was update!`);
+            setTimeout(() => {setMessage(null)}, 5000);
+          })
+          .catch(error => {
+            setTypeMessage(false);
+            setMessage(`Information of '${newName}' has already been removed from server`);
+            setTimeout(() => {setMessage(null)}, 5000);
+            setPersons(persons.filter(person => person.name !== newName));
           })
       } else {
         return;
@@ -59,9 +67,10 @@ const App = () => {
           setPersons([...persons,returnedPerson]);
           setNewName('');
           setNewNumber('');
-      
-          setErrorMessage(`Added '${newName}'`);
-          setTimeout(() => {setErrorMessage(null)}, 5000);
+          
+          setTypeMessage(true);
+          setMessage(`Added '${newName}'`);
+          setTimeout(() => {setMessage(null)}, 5000);
 
         })
     }
@@ -91,6 +100,10 @@ const App = () => {
     if (window.confirm(`Delete ${person_name}?`)) {
       personService._delete(person_id)
         .then(() => {
+          setTypeMessage(true);
+          setMessage(`Deleted '${person_name}' from Phonebook`);
+          setTimeout(() => {setMessage(null)}, 5000);
+
           setPersons(persons.filter(person => person.id !== person_id));
         })
     }
@@ -100,7 +113,7 @@ const App = () => {
     <div>
 
       <h2>Phonebook</h2>
-      <Notification message={errorMessage} />
+      <Notification message={message} messageType={typeMessage}/>
       
       <Filter newFilter={newFilter} handleFilterChange={handleFilterChange} />
       
