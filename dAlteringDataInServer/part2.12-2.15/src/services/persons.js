@@ -16,7 +16,12 @@ const _delete = id_person => {
   return request.then(response => response.data)
 }
 
-export default { 
-  getAll, create, _delete
+const updateNumber = (checkId, updatePerson) => {
+  const request = axios.put(`${baseUrl}/${checkId}`, updatePerson);
+  alert('The new number was update!')
+  return request.then(response => response.data)
 }
 
+export default { 
+  getAll, create, _delete, updateNumber
+}

@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios'
 import Persons from './components/Persons';
 import PersonForm from './components/PersonForm';
-import Filter from './components/Filter'
+import Filter from './components/Filter';
 import personService from './services/persons';
 
 const App = () => {
@@ -24,20 +23,36 @@ const App = () => {
   const addName = (event) => {
     event.preventDefault()
     const checkName = persons.find(person => person.name === newName);
+
     if (checkName) {
-      alert(`${newName} is already added to phonebook`);
+      const answer = window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`);
+
+      if (answer){
+        const checkId = checkName.id;
+        const updatedPerson = { ...checkName, number: newNumber };
+        
+        //axios.put
+        personService
+        .updateNumber(checkId,updatedPerson)
+          .then(returnedPerson => {
+            setPersons(persons.map(person =>
+              person.id === checkId ? returnedPerson : person));
+            setNewName('');
+            setNewNumber('');
+          })
+      } else {
+        return;
+      }
     } else {
-      // newName dosent exist in persons, so add to hook persons
+      // newName dosent exist at persons, so add to state persons
       const personObject = { name: newName, number: newNumber};
-      setPersons(persons.concat(personObject));
-      setNewName('');
-      setNewNumber('');
-      
+     
       personService
       .create(personObject)
         .then(returnedPerson => {
-        setPersons(persons.concat(returnedPerson))
-        setNewName('')
+          setPersons([...persons,returnedPerson]);
+          setNewName('');
+          setNewNumber('');
       })
 
     }
