@@ -1,14 +1,12 @@
-const Filter = (props) => {
+export const Filter = ({ newFilter, handleFilterChange }) => {
   return (
     <>
       <p>
         Find countries: 
         <span> 
-          <input value={props.newFilter} onChange={props.handleFilterChange} />
+          <input value={newFilter} onChange={handleFilterChange} />
         </span>
       </p>
     </>
   )
 }
-
-export default Filter
