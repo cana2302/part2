@@ -44,7 +44,7 @@ function App() {
 
   return (
     <div>
-      <Filter newFilter={newFilter} handleFilterChange={handleFilterChange}/>
+      <Filter newFilter={newFilter} handleFilterChange={handleFilterChange} />
 
       <ComponentCountryInfo indexFilter={paisFiltrado.length} paisFiltrado={paisFiltrado} />
     </div>
