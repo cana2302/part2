@@ -1,3 +1,5 @@
+import { Weather } from "./Weather.jsx";
+
 export const InfoCountryShow = ({ paisFiltrado }) => {
 
   return (
@@ -13,6 +15,8 @@ export const InfoCountryShow = ({ paisFiltrado }) => {
       </ul>
       <br/>
       <img src={paisFiltrado.imagen} alt='flag' />
+      <br/>
+      <Weather capitalName={paisFiltrado.capital} coord={paisFiltrado.coord}/>
     </div>
   )
 }

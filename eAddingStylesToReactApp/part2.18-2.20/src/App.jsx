@@ -17,7 +17,8 @@ function App() {
           capital: pais.capital,
           area: pais.area,
           languages: pais.languages,
-          imagen: pais.flags.png
+          imagen: pais.flags.png,
+          coord: pais.latlng
         }));
 
         console.log(infoPais);
@@ -41,6 +42,7 @@ function App() {
 
   console.log(paisFiltrado);
   console.log(`paisFiltrado.length es: ${paisFiltrado.length}`);
+
 
   return (
     <div>
